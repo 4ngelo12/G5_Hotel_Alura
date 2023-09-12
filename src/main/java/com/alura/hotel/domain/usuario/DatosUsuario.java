@@ -1,9 +1,11 @@
 package com.alura.hotel.domain.usuario;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public record DatosUsuario(
         @NotBlank
@@ -14,12 +16,11 @@ public record DatosUsuario(
         @Email
         String email,
         @NotBlank
-        @Pattern(regexp = "\\d{4,9}")
         String documento,
-        @NotNull
-        Role role,
         @NotBlank
-        String username,
+        String telefono,
+        @NotBlank
+        String role,
         @NotBlank
         String password
-        ) {}
+) {}
