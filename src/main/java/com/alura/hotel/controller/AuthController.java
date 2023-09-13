@@ -1,11 +1,6 @@
 package com.alura.hotel.controller;
 
-import com.alura.hotel.domain.prueba.PrubeaDTO;
-import com.alura.hotel.domain.prueba.Prueba;
-import com.alura.hotel.domain.prueba.PruebaRepository;
-import com.alura.hotel.domain.prueba.PruebaRespuesta;
-import com.alura.hotel.domain.usuario.*;
-import com.alura.hotel.infra.security.AuthService;
+import com.alura.hotel.model.usuario.*;
 import com.alura.hotel.infra.security.DatosJWTToken;
 import com.alura.hotel.infra.security.TokenService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,8 +23,6 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
     @Autowired
     private UsuarioService usuarioService;
-    @Autowired
-    private PruebaRepository pruebaRepository;
     @Autowired
     private TokenService tokenService;
 
@@ -57,18 +50,6 @@ public class AuthController {
         var JWTtoken = tokenService.generarToken((Usuario) usuarioAutenticado.getPrincipal());
 
         return ResponseEntity.ok(new DatosJWTToken(JWTtoken));
-    }
-
-    @PostMapping("/prueba")
-    @Operation(
-            summary = "inicia sesión en la aplicación",
-            description = "",
-            tags = "")
-    public ResponseEntity<PruebaRespuesta> pruebas(@RequestBody @Valid PrubeaDTO datos) {
-        Prueba prueba = pruebaRepository.save(new Prueba(datos));
-        var response = new PruebaRespuesta(prueba);
-
-        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/hello")

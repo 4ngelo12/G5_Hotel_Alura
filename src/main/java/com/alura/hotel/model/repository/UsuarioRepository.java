@@ -1,6 +1,6 @@
-package com.alura.hotel.domain.repository;
+package com.alura.hotel.model.repository;
 
-import com.alura.hotel.domain.usuario.Usuario;
+import com.alura.hotel.model.usuario.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 

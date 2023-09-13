@@ -1,4 +1,4 @@
-package com.alura.hotel.domain.usuario;
+package com.alura.hotel.model.usuario;
 
 public record DatosRespuestaUsuario(Long id, String nombre, String apellido, String email, String documento,
                                     String telefono, String username) {

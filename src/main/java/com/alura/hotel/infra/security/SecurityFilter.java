@@ -1,6 +1,6 @@
 package com.alura.hotel.infra.security;
 
-import com.alura.hotel.domain.repository.UsuarioRepository;
+import com.alura.hotel.model.repository.UsuarioRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,6 +1,6 @@
-package com.alura.hotel.domain.usuario;
+package com.alura.hotel.model.usuario;
 
-import com.alura.hotel.domain.repository.UsuarioRepository;
+import com.alura.hotel.model.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

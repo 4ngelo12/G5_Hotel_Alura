@@ -1,6 +1,6 @@
 package com.alura.hotel.infra.security;
 
-import com.alura.hotel.domain.usuario.Usuario;
+import com.alura.hotel.model.usuario.Usuario;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;

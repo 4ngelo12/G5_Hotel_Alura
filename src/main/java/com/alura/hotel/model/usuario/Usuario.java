@@ -1,4 +1,4 @@
-package com.alura.hotel.domain.usuario;
+package com.alura.hotel.model.usuario;
 
 import jakarta.persistence.*;
 import lombok.*;
