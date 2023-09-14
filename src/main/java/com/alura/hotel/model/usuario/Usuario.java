@@ -1,5 +1,6 @@
 package com.alura.hotel.model.usuario;
 
+import com.alura.hotel.model.role.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -30,21 +31,21 @@ public class Usuario implements UserDetails {
     private String documento;
     @Column(length = 15, nullable = false)
     private String telefono;
-    @Column(length = 12, nullable = false)
-    private String role;
     @Column(length = 5, nullable = false, columnDefinition = "tinyint")
     private Boolean activo;
     @Column(length = 60, nullable = false)
     private String password;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id")
+    private Role role;
 
-
-    public Usuario(DatosUsuario datosRegistroUsuario, BCryptPasswordEncoder passwordEncoder) {
+    public Usuario(DatosRegistroUsuario datosRegistroUsuario, Role rol, BCryptPasswordEncoder passwordEncoder) {
         this.nombre = datosRegistroUsuario.nombre();
         this.apellido = datosRegistroUsuario.apellido();
         this.email = datosRegistroUsuario.email();
         this.telefono = datosRegistroUsuario.telefono();
         this.documento = datosRegistroUsuario.documento();
-        this.role = datosRegistroUsuario.role();
+        this.role = rol;
         this.activo = true;
         this.password = passwordEncoder.encode(datosRegistroUsuario.password());
     }
@@ -56,7 +57,7 @@ public class Usuario implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(getRole()));
+        return List.of(new SimpleGrantedAuthority(getRole().getNombre()));
     }
 
     @Override

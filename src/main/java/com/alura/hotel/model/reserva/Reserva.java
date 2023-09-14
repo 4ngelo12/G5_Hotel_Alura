@@ -9,7 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Table(name = "reservas")
 @Entity(name = "Reserva")
@@ -21,9 +21,9 @@ public class Reserva {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime registro;
-    private LocalDateTime checkIn;
-    private LocalDateTime checkOut;
+    private LocalDate registro;
+    private LocalDate checkIn;
+    private LocalDate checkOut;
     private BigDecimal total;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")

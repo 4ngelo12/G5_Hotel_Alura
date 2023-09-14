@@ -1,5 +1,7 @@
 package com.alura.hotel.controller;
 
+import com.alura.hotel.infra.errores.ValidacionDeIntegridad;
+import com.alura.hotel.model.service.UsuarioService;
 import com.alura.hotel.model.usuario.*;
 import com.alura.hotel.infra.security.DatosJWTToken;
 import com.alura.hotel.infra.security.TokenService;
@@ -30,8 +32,8 @@ public class AuthController {
     @Operation(
             summary = "Registra Usuarios en la aplicación",
             description = "",
-            tags = "")
-    public ResponseEntity<DatosRespuestaUsuario> registrarUsuario(@RequestBody @Valid DatosUsuario datos) {
+            tags = {"post"})
+    public ResponseEntity<DatosRespuestaUsuario> registrarUsuario(@RequestBody @Valid DatosRegistroUsuario datos) {
         var response = usuarioService.saveUser(datos);
         return ResponseEntity.ok(response);
     }
@@ -40,7 +42,7 @@ public class AuthController {
     @Operation(
             summary = "inicia sesión en la aplicación",
             description = "",
-            tags = "")
+            tags = {"post"})
     public ResponseEntity<DatosJWTToken> autenticarUsuario(@RequestBody @Valid DatosAutenticacionUsuario
                                                                    datosAutenticacionUsuario) {
         Authentication authToken = new UsernamePasswordAuthenticationToken(datosAutenticacionUsuario.username(),
@@ -50,14 +52,5 @@ public class AuthController {
         var JWTtoken = tokenService.generarToken((Usuario) usuarioAutenticado.getPrincipal());
 
         return ResponseEntity.ok(new DatosJWTToken(JWTtoken));
-    }
-
-    @GetMapping("/hello")
-    @Operation(
-            summary = "Prueba de funcionamiento",
-            description = "",
-            tags = {"hola", "get"})
-    public ResponseEntity<String> hola() {
-        return ResponseEntity.ok("Hola Mundo");
     }
 }

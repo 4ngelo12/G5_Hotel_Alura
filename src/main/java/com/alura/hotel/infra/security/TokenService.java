@@ -26,6 +26,7 @@ public class TokenService {
                     .withIssuer("hotel")
                     .withSubject(usuario.getUsername())
                     .withClaim("id", usuario.getId())
+                    .withClaim("role", usuario.getRole().getNombre())
                     .withExpiresAt(generarFechaExpiracion())
                     .sign(algorithm);
         } catch (JWTCreationException exception) {
