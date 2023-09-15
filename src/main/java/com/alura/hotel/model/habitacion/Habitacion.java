@@ -25,7 +25,8 @@ public class Habitacion {
     @Column(length = 250, nullable = false)
     private String descripcion;
     private Integer numCamas;
-    private BigDecimal precio;
+    @Column(columnDefinition = "decimal", nullable = false)
+    private Double precio;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tipoHabitacion_id")
     private TipoHabitacion tipoHabitacion;

@@ -10,7 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Table(name = "reservas")
@@ -24,9 +24,8 @@ public class Reserva {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String codReserva = String.valueOf(UUID.randomUUID());
-    private LocalDate registro;
-    private LocalDate checkIn;
-    private LocalDate checkOut;
+    private LocalDateTime checkIn = LocalDateTime.now();
+    private LocalDateTime checkOut;
     private BigDecimal total;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
@@ -38,10 +37,10 @@ public class Reserva {
     @JoinColumn(name = "formpago_id")
     private TipoPago tipoPago;
 
-    public Reserva(DatosRegistroReserva datos, Usuario usuario, Habitacion habitacion, TipoPago tipoPago) {
-        this.checkIn = datos.checkIn();
-        this.checkOut = datos.checkOut();
-        this.total = datos.total();
+    public Reserva(LocalDateTime checkOut, BigDecimal total, Usuario usuario,
+                   Habitacion habitacion, TipoPago tipoPago) {
+        this.checkOut = checkOut;
+        this.total = total;
         this.usuario = usuario;
         this.habitacion = habitacion;
         this.tipoPago = tipoPago;

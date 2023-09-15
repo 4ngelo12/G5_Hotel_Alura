@@ -2,16 +2,11 @@ package com.alura.hotel.model.reserva;
 
 import jakarta.validation.constraints.NotNull;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public record DatosRegistroReserva(
         @NotNull
-        LocalDate checkIn,
-        @NotNull
-        LocalDate checkOut,
-        @NotNull
-        BigDecimal total,
+        LocalDateTime checkOut,
         @NotNull
         Long habitacionId,
         @NotNull

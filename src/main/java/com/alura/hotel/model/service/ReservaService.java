@@ -14,6 +14,10 @@ import com.alura.hotel.model.reserva.Reserva;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 @Service
 public class ReservaService {
     @Autowired
@@ -46,17 +50,18 @@ public class ReservaService {
 
         Habitacion habitacion = habitacionRepository.findById(datos.habitacionId()).get();
         TipoPago tipoPago = tipoPagoRepository.findById(datos.tipoPagoId()).get();
-        var reserva = new Reserva(datos, usuario, habitacion, tipoPago);
+
+        BigDecimal total = calcularTotal(datos.checkOut(), habitacion.getPrecio());
+        var reserva = new Reserva(datos.checkOut(), total, usuario, habitacion, tipoPago);
         reservaRepository.save(reserva);
 
         return new DatosRespuestaReserva(reserva);
     }
 
-    public void Prueba(String token) {
-        var jwtToken = token.replace("Bearer ", "");
-        var nombreUsuario = tokenService.getSubject(jwtToken);
-        var usuario = usuarioRepository.getUserData(nombreUsuario);
+    public BigDecimal calcularTotal(LocalDateTime salida, double precio) {
+        LocalDateTime ahora = LocalDateTime.now();
+        var diferenciaDias = Duration.between(ahora, salida).toDays();
 
-        System.out.println(usuario.getId());
+        return BigDecimal.valueOf(precio * diferenciaDias);
     }
 }

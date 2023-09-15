@@ -3,8 +3,6 @@ package com.alura.hotel.model.habitacion;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-import java.math.BigDecimal;
-
 public record DatosRegistroHabitacion(
         @NotNull
         Integer numero,
@@ -13,7 +11,7 @@ public record DatosRegistroHabitacion(
         @NotNull
         Integer numCamas,
         @NotNull
-        BigDecimal precio,
+        Double precio,
         @NotNull
         Long idTipoHabitacion
 ) {

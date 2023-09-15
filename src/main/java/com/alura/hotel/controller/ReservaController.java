@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/reserva")
-@EnableMethodSecurity(securedEnabled = true)
 @SecurityRequirement(name = "bearer-key")
 @Tag(name = "Reservas", description = "Permite realizar las operaciones para las reservas")
 public class ReservaController {
@@ -38,7 +37,6 @@ public class ReservaController {
     @GetMapping
     public ResponseEntity<String> obtenerDatos(@RequestHeader("Authorization") String token) {
         //Obtener el Token del Header
-        reservaService.Prueba(token);
         return ResponseEntity.ok(token);
     }
 }
