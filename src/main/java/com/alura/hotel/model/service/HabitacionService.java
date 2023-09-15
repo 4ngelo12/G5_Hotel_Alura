@@ -6,6 +6,7 @@ import com.alura.hotel.model.habitacion.DatosRespuestaHabitacion;
 import com.alura.hotel.model.habitacion.Habitacion;
 import com.alura.hotel.model.repository.HabitacionRepository;
 import com.alura.hotel.model.repository.TipoHabitacionRepository;
+import com.alura.hotel.model.tipoHabitacion.TipoHabitacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,8 @@ public class HabitacionService {
         if (tipoHabitacionRepository.findById(datos.idTipoHabitacion()).isEmpty()) {
             throw new ValidacionDeIntegridad("El tipo de habitación que busca no existe");
         }
-        var tipoHabitacion = tipoHabitacionRepository.findById(datos.idTipoHabitacion()).get();
+
+        TipoHabitacion tipoHabitacion = tipoHabitacionRepository.findById(datos.idTipoHabitacion()).get();
 
         var habitacion = new Habitacion(datos, tipoHabitacion);
         habitacionRepository.save(habitacion);
