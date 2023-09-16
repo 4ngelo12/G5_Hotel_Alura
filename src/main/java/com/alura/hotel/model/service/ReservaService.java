@@ -50,7 +50,6 @@ public class ReservaService {
         BigDecimal total = calcularTotal(datos.checkOut(), habitacion.getPrecio());
         var reserva = new Reserva(datos.checkOut(), total, usuario, habitacion, tipoPago);
         reservaRepository.save(reserva);
-        habitacion.OcuparHabitacion();
 
         return new DatosRespuestaReserva(reserva);
     }

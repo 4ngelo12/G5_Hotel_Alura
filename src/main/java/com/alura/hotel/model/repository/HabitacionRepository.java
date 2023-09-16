@@ -1,6 +1,8 @@
 package com.alura.hotel.model.repository;
 
 import com.alura.hotel.model.habitacion.Habitacion;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -11,4 +13,5 @@ public interface HabitacionRepository extends JpaRepository<Habitacion, Long> {
             where h.id=:habitacionId
             """)
     Boolean findDisponibleById(Long habitacionId);
+    Page<Habitacion> findByDisponibleTrue(Pageable paginacion);
 }

@@ -41,6 +41,6 @@ public class Habitacion {
     }
 
     public void OcuparHabitacion() {
-        this.disponible = false;
+        disponible = false;
     }
 }

@@ -3,6 +3,7 @@ package com.alura.hotel.controller;
 import com.alura.hotel.infra.errores.ValidacionDeIntegridad;
 import com.alura.hotel.model.reserva.DatosRegistroReserva;
 import com.alura.hotel.model.reserva.DatosRespuestaReserva;
+import com.alura.hotel.model.service.HabitacionService;
 import com.alura.hotel.model.service.ReservaService;
 import com.alura.hotel.model.service.UsuarioService;
 import com.alura.hotel.model.usuario.Usuario;
@@ -12,6 +13,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,8 +25,11 @@ public class ReservaController {
     private ReservaService reservaService;
     @Autowired
     private UsuarioService usuarioService;
+    @Autowired
+    private HabitacionService habitacionService;
 
     @PostMapping
+    @Transactional
     @Operation(
             summary = "Registra las reservas en la base de datos",
             description = "",
@@ -34,6 +39,7 @@ public class ReservaController {
             throws ValidacionDeIntegridad {
         Usuario usuario = usuarioService.getUser(token);
         var response = reservaService.registrarReserva(usuario, datos);
+        habitacionService.deshabilitarHabitacion(datos.habitacionId());
 
         return ResponseEntity.ok(response);
     }
