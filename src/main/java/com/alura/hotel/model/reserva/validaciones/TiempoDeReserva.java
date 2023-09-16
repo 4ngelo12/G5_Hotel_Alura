@@ -11,10 +11,10 @@ import java.time.LocalDateTime;
 public class TiempoDeReserva implements ValidacionReserva{
     @Override
     public void validar(DatosRegistroReserva datos) {
-        var ahora = LocalDateTime.now();
-        var fechaReserva = datos.checkOut();
+        var fechaReserva = datos.checkIn();
+        var fechaSalida = datos.checkOut();
 
-        var diferenciaFecha = Duration.between(ahora, fechaReserva).toDays();
+        var diferenciaFecha = Duration.between(fechaReserva, fechaSalida).toDays();
 
         if (diferenciaFecha < 1) {
             throw new ValidationException("Las reservas de las habitaciones deben ser de al menos un día");

@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 
 public record DatosRegistroReserva(
         @NotNull
+        LocalDateTime checkIn,
+        @NotNull
         LocalDateTime checkOut,
         @NotNull
         Long habitacionId,

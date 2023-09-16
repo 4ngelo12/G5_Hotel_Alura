@@ -10,7 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -25,9 +24,13 @@ public class Reserva {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String codReserva = String.valueOf(UUID.randomUUID());
-    private LocalDateTime checkIn = LocalDateTime.now();
+    private LocalDateTime fechaReserva = LocalDateTime.now();
+    private LocalDateTime checkIn;
     private LocalDateTime checkOut;
     private BigDecimal total;
+    @Column(name = "motivo_cancelamiento", length = 30)
+    @Enumerated(EnumType.STRING)
+    private MotivoCancelamiento motivoCancelamiento;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
@@ -38,12 +41,17 @@ public class Reserva {
     @JoinColumn(name = "formpago_id")
     private TipoPago tipoPago;
 
-    public Reserva(LocalDateTime checkOut, BigDecimal total, Usuario usuario,
+    public Reserva(LocalDateTime checkIn, LocalDateTime checkOut, BigDecimal total, Usuario usuario,
                    Habitacion habitacion, TipoPago tipoPago) {
+        this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.total = total;
         this.usuario = usuario;
         this.habitacion = habitacion;
         this.tipoPago = tipoPago;
+    }
+
+    public void cancelar(MotivoCancelamiento motivo) {
+        this.motivoCancelamiento = motivo;
     }
 }

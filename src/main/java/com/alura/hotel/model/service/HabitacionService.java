@@ -35,7 +35,7 @@ public class HabitacionService {
     }
 
     public Page<DatosListaHabitacion> listHabitacion(Pageable paginacion) {
-        return habitacionRepository.findByDisponibleTrue (paginacion).map(DatosListaHabitacion::new);
+        return habitacionRepository.findByDisponibleTrue(paginacion).map(DatosListaHabitacion::new);
     }
 
     public void deshabilitarHabitacion(Long id) {
