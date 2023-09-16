@@ -4,14 +4,14 @@ import com.alura.hotel.infra.errores.ValidacionDeIntegridad;
 import com.alura.hotel.model.reserva.DatosRegistroReserva;
 import com.alura.hotel.model.reserva.DatosRespuestaReserva;
 import com.alura.hotel.model.service.ReservaService;
+import com.alura.hotel.model.service.UsuarioService;
+import com.alura.hotel.model.usuario.Usuario;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.headers.Header;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 public class ReservaController {
     @Autowired
     private ReservaService reservaService;
+    @Autowired
+    private UsuarioService usuarioService;
 
     @PostMapping
     @Operation(
@@ -30,7 +32,8 @@ public class ReservaController {
     public ResponseEntity<DatosRespuestaReserva> registrarReserva(@RequestHeader("Authorization") String token,
                                                                   @RequestBody @Valid DatosRegistroReserva datos)
             throws ValidacionDeIntegridad {
-        var response = reservaService.registrarReserva(token, datos);
+        Usuario usuario = usuarioService.getUser(token);
+        var response = reservaService.registrarReserva(usuario, datos);
 
         return ResponseEntity.ok(response);
     }

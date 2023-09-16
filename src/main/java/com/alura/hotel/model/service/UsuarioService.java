@@ -1,6 +1,7 @@
 package com.alura.hotel.model.service;
 
 import com.alura.hotel.infra.errores.ValidacionDeIntegridad;
+import com.alura.hotel.infra.security.TokenService;
 import com.alura.hotel.model.repository.RoleRepository;
 import com.alura.hotel.model.repository.UsuarioRepository;
 import com.alura.hotel.model.usuario.DatosRespuestaUsuario;
@@ -19,6 +20,8 @@ public class UsuarioService {
     private RoleRepository roleRepository;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+    @Autowired
+    private TokenService tokenService;
 
     public DatosRespuestaUsuario saveUser(DatosRegistroUsuario datosRegistroUsuario) {
         if (!roleRepository.findById(datosRegistroUsuario.idRole()).isPresent()) {
@@ -29,5 +32,17 @@ public class UsuarioService {
         Usuario usuario = usuarioRepository.save(new Usuario(datosRegistroUsuario, role, passwordEncoder));
 
         return new DatosRespuestaUsuario(usuario);
+    }
+
+    public Usuario getUser(String token) {
+        var jwtToken = token.replace("Bearer ", "");
+        var nombreUsuario = tokenService.getSubject(jwtToken);
+        var usuario = usuarioRepository.getUserData(nombreUsuario);
+
+        if (usuario.getRole().getNombre().equals("EMPLEADO")) {
+            throw new ValidacionDeIntegridad("No está autorizado para realizar esta acción");
+        }
+
+        return usuario;
     }
 }

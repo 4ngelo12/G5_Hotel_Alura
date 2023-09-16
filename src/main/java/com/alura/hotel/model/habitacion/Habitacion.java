@@ -39,4 +39,8 @@ public class Habitacion {
         this.precio = datos.precio();
         this.tipoHabitacion = tipoHabitacion;
     }
+
+    public void OcuparHabitacion() {
+        this.disponible = false;
+    }
 }
