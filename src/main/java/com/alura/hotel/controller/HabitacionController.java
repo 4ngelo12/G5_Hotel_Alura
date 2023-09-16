@@ -41,12 +41,20 @@ public class HabitacionController {
     }
 
     @GetMapping
+    @Operation(
+            summary = "Lista las habitaciones",
+            description = "",
+            tags = {"get"})
     public ResponseEntity<Page<DatosListaHabitacion>> obtenerDatos(@PageableDefault(size = 4, page = 0) Pageable pageable) {
         return ResponseEntity.ok(habitacionService.listHabitacion(pageable));
     }
 
     @DeleteMapping("/{id}")
     @Transactional
+    @Operation(
+            summary = "Inhabilita las habitaciones",
+            description = "",
+            tags = {"delete"})
     public ResponseEntity<Object> EliminarHabitacion(@PathVariable Long id) {
         habitacionService.deshabilitarHabitacion(id);
         return ResponseEntity.noContent().build();

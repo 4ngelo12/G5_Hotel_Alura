@@ -1,6 +1,8 @@
 package com.alura.hotel.controller;
 
 import com.alura.hotel.infra.errores.ValidacionDeIntegridad;
+import com.alura.hotel.model.reserva.DatosCancelarReserva;
+import com.alura.hotel.model.reserva.DatosListaReserva;
 import com.alura.hotel.model.reserva.DatosRegistroReserva;
 import com.alura.hotel.model.reserva.DatosRespuestaReserva;
 import com.alura.hotel.model.service.HabitacionService;
@@ -12,6 +14,9 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -43,9 +48,20 @@ public class ReservaController {
 
         return ResponseEntity.ok(response);
     }
+
     @GetMapping
-    public ResponseEntity<String> obtenerDatos(@RequestHeader("Authorization") String token) {
-        //Obtener el Token del Header
-        return ResponseEntity.ok(token);
+    @Operation(
+            summary = "Lista las reservas",
+            description = "",
+            tags = {"get"})
+    public ResponseEntity<Page<DatosListaReserva>> obtenerDatos(@PageableDefault(size = 6, page = 0) Pageable pageable) {
+        return ResponseEntity.ok(reservaService.listarReservas(pageable));
+    }
+
+    @DeleteMapping
+    @Transactional
+    public ResponseEntity cancelarReserva(@RequestBody @Valid DatosCancelarReserva datos) {
+        reservaService.cancelarReserva(datos);
+        return ResponseEntity.noContent().build();
     }
 }
