@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
@@ -28,6 +29,11 @@ public class Usuario implements UserDetails {
     private String apellido;
     @Column(length = 70, nullable = false)
     private String email;
+    @Column(name = "fecha_nacimiento")
+    private LocalDate fechaNacimiento;
+    @Enumerated(EnumType.STRING)
+    @Column(length = 15, nullable = false)
+    private TipoDocumento tipoDocumento;
     @Column(length = 15, nullable = false, unique = true)
     private String documento;
     @Column(length = 15, nullable = false)
@@ -44,6 +50,8 @@ public class Usuario implements UserDetails {
         this.nombre = datosRegistroUsuario.nombre();
         this.apellido = datosRegistroUsuario.apellido();
         this.email = datosRegistroUsuario.email();
+        this.fechaNacimiento = datosRegistroUsuario.fechaNacimiento();
+        this.tipoDocumento = datosRegistroUsuario.tipoDocumento();
         this.telefono = datosRegistroUsuario.telefono();
         this.documento = datosRegistroUsuario.documento();
         this.role = rol;
