@@ -1,6 +1,5 @@
 package com.alura.hotel.controller;
 
-import com.alura.hotel.infra.errores.ValidacionDeIntegridad;
 import com.alura.hotel.model.service.UsuarioService;
 import com.alura.hotel.model.usuario.*;
 import com.alura.hotel.infra.security.DatosJWTToken;
@@ -15,9 +14,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin("*")
 @Tag(name = "Autenticacion", description = "obtiene el token para el usuario asignado que da " +
         "acceso al resto de endpoint")
 public class AuthController {
