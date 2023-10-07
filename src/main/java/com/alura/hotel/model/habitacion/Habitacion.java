@@ -27,7 +27,7 @@ public class Habitacion {
     private Integer numCamas;
     @Column(columnDefinition = "decimal", nullable = false)
     private Double precio;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tipoHabitacion_id")
     private TipoHabitacion tipoHabitacion;
 

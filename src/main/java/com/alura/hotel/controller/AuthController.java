@@ -55,4 +55,9 @@ public class AuthController {
 
         return ResponseEntity.ok(new DatosJWTToken(JWTtoken));
     }
+
+    @GetMapping("/usuario")
+    public Usuario obtenerUsuario(@RequestHeader("Authorization") String token) {
+        return usuarioService.getUser(token);
+    }
 }

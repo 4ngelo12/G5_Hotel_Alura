@@ -19,6 +19,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/habitaciones")
 @EnableMethodSecurity(securedEnabled = true)
@@ -45,7 +46,7 @@ public class HabitacionController {
             summary = "Lista las habitaciones",
             description = "",
             tags = {"get"})
-    public ResponseEntity<Page<DatosListaHabitacion>> obtenerDatos(@PageableDefault(size = 4, page = 0) Pageable pageable) {
+    public ResponseEntity<Page<DatosListaHabitacion>> obtenerDatos(@PageableDefault(size = 80, page = 0) Pageable pageable) {
         return ResponseEntity.ok(habitacionService.listHabitacion(pageable));
     }
 

@@ -39,9 +39,9 @@ public class UsuarioService {
         var nombreUsuario = tokenService.getSubject(jwtToken);
         var usuario = usuarioRepository.getUserData(nombreUsuario);
 
-        if (usuario.getRole().getNombre().equals("EMPLEADO")) {
+        /*if (usuario.getRole().getNombre().equals("EMPLEADO")) {
             throw new ValidacionDeIntegridad("No está autorizado para realizar esta acción");
-        }
+        }*/
 
         return usuario;
     }
