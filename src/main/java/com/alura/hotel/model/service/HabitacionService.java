@@ -19,7 +19,7 @@ public class HabitacionService {
     @Autowired
     private HabitacionRepository habitacionRepository;
     @Autowired
-    private TipoHabitacionRepository tipoHabitacionRepository;
+    private TipoHabitacionRepository tipoHabitacionRepository ;
 
     public DatosRespuestaHabitacion registrarHabitacion(DatosRegistroHabitacion datos) {
         if (tipoHabitacionRepository.findById(datos.idTipoHabitacion()).isEmpty()) {
@@ -36,6 +36,11 @@ public class HabitacionService {
 
     public Page<DatosListaHabitacion> listHabitacion(Pageable paginacion) {
         return habitacionRepository.findByDisponibleTrue(paginacion).map(DatosListaHabitacion::new);
+    }
+
+    public DatosRespuestaHabitacion listHabitacionId(Long id) {
+        Habitacion habitacion = habitacionRepository.getReferenceById(id);
+        return new DatosRespuestaHabitacion(habitacion);
     }
 
     public void deshabilitarHabitacion(Long id) {

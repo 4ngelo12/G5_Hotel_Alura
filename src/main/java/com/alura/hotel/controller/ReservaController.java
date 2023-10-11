@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/reserva")
+@CrossOrigin("*")
 @SecurityRequirement(name = "bearer-key")
 @Tag(name = "Reservas", description = "Permite realizar las operaciones para las reservas")
 public class ReservaController {
@@ -54,8 +55,8 @@ public class ReservaController {
             summary = "Lista las reservas",
             description = "",
             tags = {"get"})
-    public ResponseEntity<Page<DatosListaReserva>> obtenerDatos(@PageableDefault(size = 6, page = 0) Pageable pageable) {
-        return ResponseEntity.ok(reservaService.listarReservas(pageable));
+    public ResponseEntity<Page<DatosListaReserva>> obtenerDatos(Pageable pageable, Long id) {
+        return ResponseEntity.ok(reservaService.listarReservas(pageable, id));
     }
 
     @DeleteMapping

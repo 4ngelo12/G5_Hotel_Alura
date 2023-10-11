@@ -24,13 +24,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/habitaciones")
 @EnableMethodSecurity(securedEnabled = true)
 @SecurityRequirement(name = "bearer-key")
-@Secured("ADMIN")
 @Tag(name = "Habitaciones", description = "Permite realizar las operaciones para gestionar las habitaciones")
 public class HabitacionController {
     @Autowired
     private HabitacionService habitacionService;
 
     @PostMapping
+    @Secured("ADMIN")
     @Operation(
             summary = "Registra las habitaciones en la base de datos",
             description = "",
@@ -50,6 +50,15 @@ public class HabitacionController {
         return ResponseEntity.ok(habitacionService.listHabitacion(pageable));
     }
 
+    @GetMapping("/{id}")
+    @Operation(
+            summary = "Lista las habitaciones por id",
+            description = "",
+            tags = {"get"})
+    public ResponseEntity<DatosRespuestaHabitacion> getDataId(@PathVariable Long id) {
+        return ResponseEntity.ok(habitacionService.listHabitacionId(id));
+    }
+
     @DeleteMapping("/{id}")
     @Transactional
     @Operation(
@@ -60,5 +69,4 @@ public class HabitacionController {
         habitacionService.deshabilitarHabitacion(id);
         return ResponseEntity.noContent().build();
     }
-
 }

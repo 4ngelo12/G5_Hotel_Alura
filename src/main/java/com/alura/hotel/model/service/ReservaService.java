@@ -58,8 +58,8 @@ public class ReservaService {
         return new DatosRespuestaReserva(reserva);
     }
 
-    public Page<DatosListaReserva> listarReservas(Pageable pageable) {
-        return reservaRepository.findByMotivoCancelamientoIsNull(pageable).map(DatosListaReserva::new);
+    public Page<DatosListaReserva> listarReservas(Pageable pageable, Long id) {
+        return reservaRepository.findByUsuarioIdAndMotivoCancelamientoIsNull(pageable, id).map(DatosListaReserva::new);
     }
 
     public void cancelarReserva(DatosCancelarReserva datos) {

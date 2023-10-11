@@ -23,7 +23,7 @@ public class Reserva {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String codReserva = String.valueOf(UUID.randomUUID());
+    private String codReserva = UUID.randomUUID().toString().substring(0, 8);
     private LocalDateTime fechaReserva = LocalDateTime.now();
     private LocalDateTime checkIn;
     private LocalDateTime checkOut;

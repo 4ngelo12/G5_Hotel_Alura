@@ -22,7 +22,7 @@ public class Habitacion {
     private Integer numero;
     @Column(length = 5, nullable = false, columnDefinition = "tinyint")
     private Boolean disponible;
-    @Column(length = 250, nullable = false)
+    @Column(columnDefinition = "text", nullable = false)
     private String descripcion;
     private Integer numCamas;
     @Column(columnDefinition = "decimal", nullable = false)
