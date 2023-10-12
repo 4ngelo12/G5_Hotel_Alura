@@ -88,4 +88,26 @@ public class Usuario implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public void actualizarDatos(DatosActualizarUsuario datos) {
+        if (datos.nombre() != null) {
+            this.nombre = datos.nombre();
+        }
+        if (datos.apellido() != null) {
+            this.apellido = datos.apellido();
+        }
+        if (datos.fechaNacimiento() != null) {
+            this.fechaNacimiento = datos.fechaNacimiento();
+        }
+        if (datos.tipoDocumento() != null) {
+            this.tipoDocumento = datos.tipoDocumento();
+        }
+        if (datos.documento() != null) {
+            this.documento = datos.documento();
+        }
+        if (datos.telefono() != null) {
+            this.telefono = datos.telefono();
+        }
+
+    }
 }

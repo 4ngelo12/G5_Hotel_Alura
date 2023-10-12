@@ -4,10 +4,9 @@ import com.alura.hotel.infra.errores.ValidacionDeIntegridad;
 import com.alura.hotel.infra.security.TokenService;
 import com.alura.hotel.model.repository.RoleRepository;
 import com.alura.hotel.model.repository.UsuarioRepository;
-import com.alura.hotel.model.usuario.DatosRespuestaUsuario;
-import com.alura.hotel.model.usuario.DatosRegistroUsuario;
-import com.alura.hotel.model.usuario.Usuario;
+import com.alura.hotel.model.usuario.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -34,15 +33,17 @@ public class UsuarioService {
         return new DatosRespuestaUsuario(usuario);
     }
 
+    public DatosRespuestaActualizarUsuario updateUser(DatosActualizarUsuario datos) {
+        Usuario usuario = usuarioRepository.getReferenceById(datos.id());
+        usuario.actualizarDatos(datos);
+
+        return new DatosRespuestaActualizarUsuario(usuario);
+    }
+
     public Usuario getUser(String token) {
         var jwtToken = token.replace("Bearer ", "");
         var nombreUsuario = tokenService.getSubject(jwtToken);
-        var usuario = usuarioRepository.getUserData(nombreUsuario);
 
-        /*if (usuario.getRole().getNombre().equals("EMPLEADO")) {
-            throw new ValidacionDeIntegridad("No está autorizado para realizar esta acción");
-        }*/
-
-        return usuario;
+        return usuarioRepository.getUserData(nombreUsuario);
     }
 }
