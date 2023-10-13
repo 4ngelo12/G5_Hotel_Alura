@@ -3,6 +3,7 @@ package com.alura.hotel.controller;
 import com.alura.hotel.model.service.UsuarioService;
 import com.alura.hotel.model.usuario.DatosActualizarUsuario;
 import com.alura.hotel.model.usuario.DatosRespuestaActualizarUsuario;
+import com.alura.hotel.model.usuario.DatosRespuestaUsuario;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,6 +21,16 @@ import org.springframework.web.bind.annotation.*;
 public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
+
+    @GetMapping()
+    @Operation(
+            summary = "Obtener datos del usuario",
+            description = "",
+            tags = {"get"})
+    public DatosRespuestaUsuario obtenerUsuario(@RequestHeader("Authorization") String token) {
+        var usuario = usuarioService.getUser(token);
+        return new DatosRespuestaUsuario(usuario);
+    }
 
     @PutMapping
     @Transactional

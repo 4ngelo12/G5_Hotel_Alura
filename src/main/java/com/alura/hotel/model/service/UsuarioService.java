@@ -5,10 +5,12 @@ import com.alura.hotel.infra.security.TokenService;
 import com.alura.hotel.model.repository.RoleRepository;
 import com.alura.hotel.model.repository.UsuarioRepository;
 import com.alura.hotel.model.usuario.*;
+import com.alura.hotel.model.usuario.validaciones.ValidacionUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -21,13 +23,17 @@ public class UsuarioService {
     private BCryptPasswordEncoder passwordEncoder;
     @Autowired
     private TokenService tokenService;
+    @Autowired
+    List<ValidacionUsuario> validadores;
 
     public DatosRespuestaUsuario saveUser(DatosRegistroUsuario datosRegistroUsuario) {
         if (!roleRepository.findById(datosRegistroUsuario.idRole()).isPresent()) {
             throw new ValidacionDeIntegridad("El rol ingresado no existe");
         }
-        var role = roleRepository.findById(datosRegistroUsuario.idRole()).get();
 
+        validadores.forEach(v -> v.validar(datosRegistroUsuario));
+
+        var role = roleRepository.findById(datosRegistroUsuario.idRole()).get();
         Usuario usuario = usuarioRepository.save(new Usuario(datosRegistroUsuario, role, passwordEncoder));
 
         return new DatosRespuestaUsuario(usuario);

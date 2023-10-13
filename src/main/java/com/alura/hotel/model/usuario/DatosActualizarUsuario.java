@@ -19,5 +19,6 @@ public record DatosActualizarUsuario(
         @Pattern(regexp = "\\d{8,15}")
         String documento,
         @Pattern(regexp = "\\d{9,15}", message = "El número de teléfono debe tener al menos 9 caracteres")
-        String telefono
+        String telefono,
+        String role
 ) {}

@@ -49,17 +49,8 @@ public class AuthController {
         Authentication authToken = new UsernamePasswordAuthenticationToken(datosAutenticacionUsuario.username(),
                 datosAutenticacionUsuario.password());
         var usuarioAutenticado = authenticationManager.authenticate(authToken);
-
         var JWTtoken = tokenService.generarToken((Usuario) usuarioAutenticado.getPrincipal());
 
-        System.out.println(tokenService.getSubject(JWTtoken));
-
         return ResponseEntity.ok(new DatosJWTToken(JWTtoken));
-    }
-
-    @GetMapping("/usuario")
-    public DatosRespuestaUsuario obtenerUsuario(@RequestHeader("Authorization") String token) {
-        var usuario = usuarioService.getUser(token);
-        return new DatosRespuestaUsuario(usuario);
     }
 }
