@@ -12,9 +12,9 @@ public class UsuarioCreado implements ValidacionUsuario{
     private UsuarioRepository usuarioRepository;
     @Override
     public void validar(DatosRegistroUsuario datos) {
-        var emailExiste = usuarioRepository.findByEmail(datos.email());
+        var emailExiste = usuarioRepository.getUserData(datos.email());
 
-        if (emailExiste.getUsername().equals(datos.email())) {
+        if (emailExiste != null) {
             throw new ValidationException("El correo ingresado ya esta registrado");
         }
     }
