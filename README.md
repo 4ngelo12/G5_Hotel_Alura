@@ -1,5 +1,6 @@
 # Challenge ONE | JAVA | HOTEL ALURA
 
+<img src="https://img.shields.io/badge/VERSI%C3%93N-V1.0-rgb(15%2C128%2C193)">
 
 ## Descripción
 
@@ -20,3 +21,7 @@ Disfrutar de una interfaz responsiva  para una experiencia de usuario fluida des
 - Backend: Spring Boot (JDK 17)
 - Base de Datos: MySql
 - IDE: IntelliJ (BackEnd) y VS Code (FrontEnd)
+
+## Programa en funcionamiento
+
+https://github.com/4ngelo12/G5_Hotel_Alura/assets/103296574/73c8c24b-88c9-4361-827f-cb0252065fe5
